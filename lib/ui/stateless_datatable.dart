@@ -149,11 +149,10 @@ class StatelessDataTable extends StatelessWidget {
       }).toList());
     }
 
-    final TextStyle? footerTextStyle = themeData.textTheme.caption;
+    final TextStyle? footerTextStyle = themeData.textTheme.bodyLarge;
     final List<Widget> footerWidgets = <Widget>[];
     if (onRowsPerPageChanged != null) {
-      final List<Widget> _footerChildren =
-          availableRowsPerPage.where((int value) => value <= rows.length || value == rowsPerPage).map<DropdownMenuItem<int>>((int value) {
+      final List<Widget> _footerChildren = availableRowsPerPage.where((int value) => value <= rows.length || value == rowsPerPage).map<DropdownMenuItem<int>>((int value) {
         return DropdownMenuItem<int>(value: value, child: Text('$value'));
       }).toList();
       footerWidgets.addAll(<Widget>[
@@ -179,11 +178,7 @@ class StatelessDataTable extends StatelessWidget {
       Container(width: 32),
       Text(localizations.pageRowsInfoTitle(firstRowIndex + 1, firstRowIndex + rowsPerPage, totalItems ?? rows.length, rowCountApproximate)),
       Container(width: 32),
-      IconButton(
-          icon: const Icon(Icons.chevron_left),
-          padding: EdgeInsets.zero,
-          tooltip: localizations.previousPageTooltip,
-          onPressed: firstRowIndex <= 0 ? null : handlePrevious),
+      IconButton(icon: const Icon(Icons.chevron_left), padding: EdgeInsets.zero, tooltip: localizations.previousPageTooltip, onPressed: firstRowIndex <= 0 ? null : handlePrevious),
       Container(width: 24),
       IconButton(
           icon: const Icon(Icons.chevron_right),
@@ -203,8 +198,8 @@ class StatelessDataTable extends StatelessWidget {
                 container: true,
                 child: DefaultTextStyle(
                   style: _selectedRowCount > 0
-                      ? themeData.textTheme.subtitle1!.copyWith(color: themeData.colorScheme.secondary)
-                      : themeData.textTheme.headline6!.copyWith(fontWeight: FontWeight.w400),
+                      ? themeData.textTheme.titleMedium!.copyWith(color: themeData.colorScheme.secondary)
+                      : themeData.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w400),
                   child: IconTheme.merge(
                     data: const IconThemeData(opacity: 0.54),
                     child: ButtonTheme(
@@ -269,8 +264,8 @@ class StatelessDataTable extends StatelessWidget {
               container: true,
               child: DefaultTextStyle(
                 style: _selectedRowCount > 0
-                    ? themeData.textTheme.subtitle1!.copyWith(color: themeData.colorScheme.secondary)
-                    : themeData.textTheme.headline6!.copyWith(fontWeight: FontWeight.w400),
+                    ? themeData.textTheme.titleMedium!.copyWith(color: themeData.colorScheme.secondary)
+                    : themeData.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w400),
                 child: IconTheme.merge(
                   data: const IconThemeData(opacity: 0.54),
                   child: ButtonTheme(
@@ -287,23 +282,23 @@ class StatelessDataTable extends StatelessWidget {
               ),
             ),
           Expanded(
-              flex: 8,
-              child: ScrollConfiguration(
-                behavior: CustomScrollBehavior(),
+            flex: 8,
+            child: ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
                 child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: DataTable(
-                        key: _tableKey,
-                        columns: columns,
-                        sortColumnIndex: sortColumnIndex,
-                        sortAscending: sortAscending,
-                        onSelectAll: onSelectAll,
-                        rows: _getRows(firstRowIndex, rowsPerPage)),
-                  ),
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                      key: _tableKey,
+                      columns: columns,
+                      sortColumnIndex: sortColumnIndex,
+                      sortAscending: sortAscending,
+                      onSelectAll: onSelectAll,
+                      rows: _getRows(firstRowIndex, rowsPerPage)),
                 ),
               ),
+            ),
           ),
           DefaultTextStyle(
             style: footerTextStyle!,
