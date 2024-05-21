@@ -137,9 +137,8 @@ class NativeDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isTablet = size.width >= tabletBreakpoint.width &&
-        size.height >= tabletBreakpoint.height;
+    final size = MediaQuery.sizeOf(context);
+    final isTablet = size.width >= tabletBreakpoint.width && size.height >= tabletBreakpoint.height;
     if (alwaysShowDataTable || isTablet) {
       return StatelessDataTable(
         rows: rows,
